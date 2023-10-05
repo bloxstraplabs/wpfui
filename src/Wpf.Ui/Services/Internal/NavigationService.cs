@@ -145,7 +145,7 @@ internal sealed class NavigationService : IDisposable
     /// <param name="pageId">Id of the selected page.</param>
     /// <param name="dataContext">Additional <see cref="FrameworkElement.DataContext"/>.</param>
     /// <returns></returns>
-    public bool Navigate(int pageId, object dataContext)
+    public bool Navigate(int pageId, object? dataContext)
     {
         return NavigateInternal(pageId, dataContext);
     }
@@ -156,7 +156,7 @@ internal sealed class NavigationService : IDisposable
     /// <param name="pageType"><see cref="Type"/> of the selected page.</param>
     /// <param name="dataContext">Additional <see cref="FrameworkElement.DataContext"/>.</param>
     /// <returns></returns>
-    public bool Navigate(Type pageType, object dataContext)
+    public bool Navigate(Type pageType, object? dataContext)
     {
         var selectedIndex = -1;
 
@@ -197,7 +197,7 @@ internal sealed class NavigationService : IDisposable
     /// <param name="pageTag">Tag of the page.</param>
     /// <param name="dataContext">Additional <see cref="FrameworkElement.DataContext"/>.</param>
     /// <returns></returns>
-    public bool Navigate(string pageTag, object dataContext)
+    public bool Navigate(string pageTag, object? dataContext)
     {
         var selectedIndex = -1;
 
@@ -222,7 +222,7 @@ internal sealed class NavigationService : IDisposable
     /// </summary>
     /// <param name="frameworkElement"><see cref="FrameworkElement"/> to navigate.</param>
     /// <param name="dataContext">Additional <see cref="FrameworkElement.DataContext"/>.</param>
-    public bool NavigateExternal(object frameworkElement, object dataContext)
+    public bool NavigateExternal(object frameworkElement, object? dataContext)
     {
         if (_frame == null)
             return false;
@@ -252,7 +252,7 @@ internal sealed class NavigationService : IDisposable
     /// </summary>
     /// <param name="frameworkElementUri">Uri of the <see cref="FrameworkElement"/> to navigate.</param>
     /// <param name="dataContext">Additional <see cref="FrameworkElement.DataContext"/>.</param>
-    public bool NavigateExternal(Uri frameworkElementUri, object dataContext)
+    public bool NavigateExternal(Uri frameworkElementUri, object? dataContext)
     {
         if (_frame == null)
             return false;
@@ -384,7 +384,7 @@ internal sealed class NavigationService : IDisposable
     /// Sets currently used <see cref="IPageService"/>.
     /// </summary>
     /// <param name="pageService">Service to set.</param>
-    public void SetService(IPageService pageService)
+    public void SetService(IPageService? pageService)
     {
         _pageService = pageService;
     }
@@ -464,7 +464,7 @@ internal sealed class NavigationService : IDisposable
         System.Diagnostics.Debug.WriteLine($"INFO | {typeof(NavigationService)} disposed.", "Wpf.Ui.Navigation");
 #endif
 
-        _navigationServiceItems = null;
+        _navigationServiceItems = null!;
     }
 
     #endregion Disposing
@@ -477,7 +477,7 @@ internal sealed class NavigationService : IDisposable
     /// <param name="serviceItemId">Id of the item to navigate.</param>
     /// <param name="dataContext">Additional <see cref="FrameworkElement.DataContext"/>.</param>
     /// <returns></returns>
-    private bool NavigateInternal(int serviceItemId, object dataContext)
+    private bool NavigateInternal(int serviceItemId, object? dataContext)
     {
         if (!_navigationServiceItems.Any())
             return false;
@@ -512,7 +512,7 @@ internal sealed class NavigationService : IDisposable
     /// <summary>
     /// Navigates internally without service and with enabled cache.
     /// </summary>
-    private bool NavigateInternalByItemWithCache(int serviceItemId, object dataContext)
+    private bool NavigateInternalByItemWithCache(int serviceItemId, object? dataContext)
     {
         if (_frame == null)
             return false;
@@ -593,7 +593,7 @@ internal sealed class NavigationService : IDisposable
     /// <summary>
     /// Navigates internally without service and with cache disabled.
     /// </summary>
-    private bool NavigateInternalByItemWithoutCache(int serviceItemId, object dataContext)
+    private bool NavigateInternalByItemWithoutCache(int serviceItemId, object? dataContext)
     {
         if (_frame == null)
             return false;
@@ -656,7 +656,7 @@ internal sealed class NavigationService : IDisposable
         if (_navigationServiceItems.Length - 1 < serviceItemId)
             return false;
 
-        var servicePageInstance = _pageService.GetPage(_navigationServiceItems[serviceItemId].Type);
+        var servicePageInstance = _pageService?.GetPage(_navigationServiceItems[serviceItemId].Type);
 
         if (servicePageInstance == null)
             throw new InvalidOperationException($"The {_navigationServiceItems[serviceItemId].Type} has not been registered in the {typeof(IPageService)} service.");
@@ -686,7 +686,7 @@ internal sealed class NavigationService : IDisposable
     /// <summary>
     /// Tries to create an instance from the selected page type.
     /// </summary>
-    private FrameworkElement CreateFrameworkElementInstance(Type pageType, object dataContext)
+    private FrameworkElement CreateFrameworkElementInstance(Type pageType, object? dataContext)
     {
         return NavigationServiceActivator.CreateInstance(pageType, dataContext);
     }

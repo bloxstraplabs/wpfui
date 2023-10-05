@@ -46,8 +46,9 @@ internal static class Hicon
 #if DEBUG
             System.Diagnostics.Debug.WriteLine($"ERROR | Unable to get application hIcon - {e}", "Wpf.Ui.Hicon");
             throw;
-#endif
+#else
             return IntPtr.Zero;
+#endif
         }
     }
 

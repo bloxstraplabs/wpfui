@@ -113,7 +113,10 @@ public abstract class NavigationBase : System.Windows.Controls.Control, INavigat
     }
 
     /// <inheritdoc/>
-    [Obsolete("Work in progress.")]
+    /// <remarks>
+    /// Work in progress.
+    /// </remarks>
+    //[Obsolete("Work in progress.")]
     public Orientation Orientation
     {
         get => (Orientation)GetValue(OrientationProperty);
@@ -282,7 +285,7 @@ public abstract class NavigationBase : System.Windows.Controls.Control, INavigat
     /// <inheritdoc/>
     public bool Navigate(Type pageType, object? dataContext)
     {
-        if (!_navigationService.Navigate(pageType, dataContext))
+        if (!(_navigationService?.Navigate(pageType, dataContext) ?? false))
             return false;
 
         NavigateInternal(0, true);
@@ -299,7 +302,7 @@ public abstract class NavigationBase : System.Windows.Controls.Control, INavigat
     /// <inheritdoc/>
     public bool Navigate(string pageTag, object? dataContext)
     {
-        if (!_navigationService.Navigate(pageTag, dataContext))
+        if (!(_navigationService?.Navigate(pageTag, dataContext) ?? false))
             return false;
 
         NavigateInternal(0, true);

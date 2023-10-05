@@ -150,10 +150,13 @@ internal class SnapLayoutButton
                 _visual.PointToScreen(new Point()),
                 _renderedSize);
         }
+#if DEBUG
         catch (Exception e)
         {
-#if DEBUG
             System.Diagnostics.Debug.WriteLine($"ERROR | {e}", "Wpf.Ui.SnapLayout");
+#else
+        catch
+        {
 #endif
             return false; // or not to false, that is the question
         }

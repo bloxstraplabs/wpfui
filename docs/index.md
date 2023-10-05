@@ -1,5 +1,6 @@
-![WPF UI Banner Dark](https://user-images.githubusercontent.com/13592821/174165081-9c62d188-ecb6-4200-abd8-419afbaf32c2.png#gh-dark-mode-only)
-![WPF UI Banner Light](https://user-images.githubusercontent.com/13592821/174165388-921c4745-90ed-4396-9a4b-9c86478f7447.png#gh-light-mode-only)
+<div>
+  <img src="https://user-images.githubusercontent.com/13592821/174165081-9c62d188-ecb6-4200-abd8-419afbaf32c2.png" style="width: 900px; max-width: 100%;" alt="WPF UI banner image"/>
+</div>
 
 # WPF UI
 
@@ -73,18 +74,6 @@ https://marketplace.visualstudio.com/items?itemName=lepo.wpf-ui
 
 ![WPF UI Snap Layout for WPF](https://user-images.githubusercontent.com/13592821/166259869-e60d37e4-ded4-46bf-80d9-f92c47266f34.png)
 
-## 🕹️ Radiograph
-
-Radiograph is a computer hardware monitoring app that uses **WPF UI**.
-
-![Radiograph screenshot](https://user-images.githubusercontent.com/13592821/165918625-6cc72bb1-2617-40fa-a193-60fea0efcd65.png)
-
-[<img src="https://github.com/lepoco/wpfui/blob/main/.github/assets/microsoft-badge.png?raw=true" width="120">](https://www.microsoft.com/en-us/p/radiograph/9nh1p86h06cg?activetab=pivot:overviewtab)
-
-## 📖 Documentation
-
-Documentation can be found at https://wpfui.lepo.co/. We also have a [tutorial](https://wpfui.lepo.co/tutorial/) over there for newcomers.
-
 ## 🚧 Development
 
 If you want to propose a new functionality or submit a bugfix, create a [Pull Request](https://github.com/lepoco/wpfui/compare/development...development) for the branch [development](https://github.com/lepoco/wpfui/tree/development).
@@ -108,16 +97,20 @@ First, your application needs to load custom styles, add in the **MyApp\App.xaml
 </Application>
 ```
 
-Now you can create fantastic apps, e.g. with one button:
+Now, you can customize your views, for example by adding a non-standard look to the main window and navigation buttons
 
 ```xml
 <ui:UiWindow
   ...
   xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml">
   <Grid>
-    <ui:Button
-      Content="Hello World"
-      Icon="Fluent24"/>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+    </Grid.RowDefinitions>
+
+    <ui:NavigationView Grid.Row="1"/>
+    <ui:TitleBar Grid.Row="0"/>
   </Grid>
 </ui:UiWindow>
 ```

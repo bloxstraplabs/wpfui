@@ -74,6 +74,20 @@ public class UiWindow : System.Windows.Window
         typeof(BackgroundType), typeof(UiWindow), new PropertyMetadata(BackgroundType.None, OnBackdropTypeChanged));
 
     /// <summary>
+    /// Property for <see cref="UseDefaultBorder"/>.
+    /// </summary>
+    public static readonly DependencyProperty DefaultBorderEnabledProperty = DependencyProperty.Register(
+        nameof(DefaultBorderEnabled),
+        typeof(bool), typeof(UiWindow), new PropertyMetadata(true));
+
+    /// <summary>
+    /// Property for <see cref="ShouldApplyDefaultBorder"/>.
+    /// </summary>
+    public static readonly DependencyProperty DefaultBorderThemeOverwriteProperty = DependencyProperty.Register(
+        nameof(DefaultBorderThemeOverwrite),
+        typeof(ThemeType), typeof(UiWindow), new PropertyMetadata(ThemeType.Unknown));
+
+    /// <summary>
     /// Gets or sets a value determining whether the <see cref="Window"/> content should be extended into title bar.
     /// </summary>
     public bool ExtendsContentIntoTitleBar
@@ -98,6 +112,24 @@ public class UiWindow : System.Windows.Window
     {
         get => (BackgroundType)GetValue(WindowBackdropTypeProperty);
         set => SetValue(WindowBackdropTypeProperty, value);
+    }
+
+    /// <summary>
+    /// Should apply the default border to windows.
+    /// </summary>
+    public bool DefaultBorderEnabled
+    {
+        get => (bool)GetValue(DefaultBorderEnabledProperty);
+        set => SetValue(DefaultBorderEnabledProperty, value);
+    }
+
+    /// <summary>
+    /// Overwrites the default border theme value.
+    /// </summary>
+    public ThemeType DefaultBorderThemeOverwrite
+    {
+        get => (ThemeType)GetValue(DefaultBorderThemeOverwriteProperty);
+        set => SetValue(DefaultBorderThemeOverwriteProperty, value);
     }
 
     #endregion Public properties

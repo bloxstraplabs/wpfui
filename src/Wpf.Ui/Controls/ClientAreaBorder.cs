@@ -24,8 +24,6 @@ namespace Wpf.Ui.Controls;
 /// </summary>
 public class ClientAreaBorder : System.Windows.Controls.Border, IThemeControl
 {
-    private bool _borderBrushApplied = false;
-
     private const int SM_CXFRAME = 32;
 
     private const int SM_CYFRAME = 33;
@@ -96,9 +94,6 @@ public class ClientAreaBorder : System.Windows.Controls.Border, IThemeControl
     {
         Theme = currentTheme;
 
-        if (!_borderBrushApplied || _oldWindow == null)
-            return;
-
         ApplyDefaultWindowBorder();
     }
 
@@ -140,14 +135,40 @@ public class ClientAreaBorder : System.Windows.Controls.Border, IThemeControl
     private void ApplyDefaultWindowBorder()
     {
         if (Win32.Utilities.IsOSWindows11OrNewer || _oldWindow == null)
+        {
+            ResetDefaultWindowBorder(_oldWindow);
             return;
+        }
 
-        _borderBrushApplied = true;
+        ThemeType theme = Theme;
+
+        if (_oldWindow is UiWindow uiWindow)
+        {
+            if (!uiWindow.DefaultBorderEnabled)
+            {
+                ResetDefaultWindowBorder(uiWindow);
+                return;
+            }
+
+            if (uiWindow.DefaultBorderThemeOverwrite != ThemeType.Unknown)
+                theme = uiWindow.DefaultBorderThemeOverwrite;
+        }
 
         // SystemParameters.WindowGlassBrush
 
-        _oldWindow.BorderThickness = new Thickness(1);
-        _oldWindow.BorderBrush = new SolidColorBrush(Theme == ThemeType.Light ? Color.FromArgb(0xFF, 0x7A, 0x7A, 0x7A) : Color.FromArgb(0xFF, 0x3A, 0x3A, 0x3A));
+        Brush brush = new SolidColorBrush(theme == ThemeType.Light ? Color.FromArgb(255, 200, 200, 200) : Color.FromArgb(255, 58, 58, 58));
+
+        BorderThickness = new Thickness(1);
+        BorderBrush = brush;
+    }
+
+    private void ResetDefaultWindowBorder(Window? window)
+    {
+        if (window == null)
+            return;
+
+        BorderBrush = window.BorderBrush;
+        BorderThickness = window.BorderThickness;
     }
 
     private (double factorX, double factorY) GetDpi()

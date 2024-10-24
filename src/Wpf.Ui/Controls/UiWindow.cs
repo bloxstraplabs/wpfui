@@ -74,14 +74,14 @@ public class UiWindow : System.Windows.Window
         typeof(BackgroundType), typeof(UiWindow), new PropertyMetadata(BackgroundType.None, OnBackdropTypeChanged));
 
     /// <summary>
-    /// Property for <see cref="UseDefaultBorder"/>.
+    /// Property for <see cref="DefaultBorderEnabled"/>.
     /// </summary>
     public static readonly DependencyProperty DefaultBorderEnabledProperty = DependencyProperty.Register(
         nameof(DefaultBorderEnabled),
         typeof(bool), typeof(UiWindow), new PropertyMetadata(true));
 
     /// <summary>
-    /// Property for <see cref="ShouldApplyDefaultBorder"/>.
+    /// Property for <see cref="DefaultBorderThemeOverwrite"/>.
     /// </summary>
     public static readonly DependencyProperty DefaultBorderThemeOverwriteProperty = DependencyProperty.Register(
         nameof(DefaultBorderThemeOverwrite),
